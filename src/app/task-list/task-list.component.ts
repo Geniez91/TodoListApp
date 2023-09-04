@@ -8,6 +8,7 @@ import { Task } from '../task.model';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+  editedTaskName:string='';
   tasks: Task[] = [];
 
   constructor(private todoService: TodoService) {}
@@ -20,4 +21,12 @@ export class TaskListComponent implements OnInit {
     this.todoService.removeTask(id);
     this.tasks = this.todoService.getTasks();
   }
+
+  editTask(id: number): void {
+    this.todoService.editTask(id,this.editedTaskName)
+  }
+  
+
+
+  
 }
