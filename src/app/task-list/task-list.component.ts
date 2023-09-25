@@ -5,10 +5,10 @@ import { Task } from '../task.model';
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  editedTaskName:string='';
+  editedTaskName: string = '';
   tasks: Task[] = [];
 
   constructor(private todoService: TodoService) {}
@@ -22,11 +22,10 @@ export class TaskListComponent implements OnInit {
     this.tasks = this.todoService.getTasks();
   }
 
-  editTask(id: number): void {
-    this.todoService.editTask(id,this.editedTaskName)
+  editTask(task: Task): void {
+    if (task.title !== undefined) {
+      this.todoService.editTask(task.id, task.title);
+      task.isUpdated = false;
+    }
   }
-  
-
-
-  
 }

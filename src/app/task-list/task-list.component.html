@@ -1,46 +1,37 @@
 <h2>Todo List</h2>
 <mat-card *ngFor="let task of tasks" class="m-2">
-  <ng-container *ngIf="task.isUpdated===false;else editForm">
+  <ng-container *ngIf="!task.isUpdated; else editForm">
     <div class="row p-2">
-
       <div class="col-3 d-flex align-items-center">
         {{ task.title }}
       </div>
-
       <div class="col-3">
-        <button mat-raised-button color="primary" (click)="task.isUpdated=true">Edit</button>
+        <button mat-raised-button color="primary" (click)="task.isUpdated = true">Edit</button>
       </div>
-
       <div class="col-3">
         <button mat-raised-button color="warn" (click)="removeTask(task.id)">Delete</button>
       </div>
-
       <div class="col-3">
-        <mat-checkbox name="subscribe" [(ngModel)]="task.isCompleted??!task.isCompleted"> </mat-checkbox>
+        <mat-checkbox name="subscribe" [(ngModel)]="task.isCompleted"> </mat-checkbox>
       </div>
-
     </div>
-
   </ng-container>
   <ng-template #editForm>
-    <form (submit)="editTask(task.id)">
+    <form (submit)="editTask(task)">
       <div class="row d-flex align-items-center justify-content-start p-2">
         <div class="col-2">
           <mat-form-field class="example-form-field">
             <mat-label>Modifier</mat-label>
-            <input matInput name="editedTaskName" [(ngModel)]="editedTaskName" >
-            <button *ngIf="editedTaskName" matSuffix mat-icon-button aria-label="Clear" (click)="editedTaskName=''">
+            <input matInput name="title" [(ngModel)]="task.title">
+            <button *ngIf="task.title" matSuffix mat-icon-button aria-label="Clear" (click)="task.title=''">
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
         </div>
-
         <div class="col-3">
-          <button type="submit" mat-raised-button color="primary" [disabled]="!editedTaskName">Save</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="!task.title">Save</button>
         </div>
-
       </div>
     </form>
-
   </ng-template>
 </mat-card>
