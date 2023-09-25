@@ -1,5 +1,12 @@
 <h2>Todo List</h2>
-<mat-card *ngFor="let task of tasks" class="m-2">
+<div>
+  <button mat-raised-button (click)="setFilter('all')">All</button>
+  <button mat-raised-button (click)="setFilter('completed')">Completed</button>
+  <button mat-raised-button (click)="setFilter('uncompleted')">Uncompleted</button>
+</div>
+
+<mat-card *ngFor="let task of filteredTasks" class="m-2">
+<!-- <mat-card *ngFor="let task of tasks" class="m-2"> -->
   <ng-container *ngIf="!task.isUpdated; else editForm">
     <div class="row p-2">
       <div class="col-3 d-flex align-items-center">
@@ -34,4 +41,5 @@
       </div>
     </form>
   </ng-template>
+<!-- </mat-card> -->
 </mat-card>
