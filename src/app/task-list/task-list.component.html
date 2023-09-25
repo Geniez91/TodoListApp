@@ -1,8 +1,11 @@
 <h2>Todo List</h2>
-<div>
+
+<div class="d-flex gap-2">
+
   <button mat-raised-button (click)="setFilter('all')">All</button>
   <button mat-raised-button (click)="setFilter('completed')">Completed</button>
   <button mat-raised-button (click)="setFilter('uncompleted')">Uncompleted</button>
+
 </div>
 
 <mat-card *ngFor="let task of filteredTasks" class="m-2">
@@ -19,7 +22,7 @@
         <button mat-raised-button color="warn" (click)="removeTask(task.id)">Delete</button>
       </div>
       <div class="col-3">
-        <mat-checkbox name="subscribe" [(ngModel)]="task.isCompleted"> </mat-checkbox>
+        <mat-checkbox [(ngModel)]="task.isCompleted"> </mat-checkbox>
       </div>
     </div>
   </ng-container>
