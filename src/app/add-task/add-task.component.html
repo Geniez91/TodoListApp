@@ -1,4 +1,17 @@
-<div>
-  <input [(ngModel)]="taskTitle" placeholder="New Task">
-  <button (click)="addTask()">Add</button>
+<div class="row d-flex align-items-center justify-content-start">
+
+  <div class="col-2">
+    <mat-form-field class="example-form-field">
+      <mat-label>Add todo</mat-label>
+      <input matInput type="text" [(ngModel)]="taskTitle">
+      <button *ngIf="taskTitle" matSuffix mat-icon-button aria-label="Clear" (click)="taskTitle=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="col-3">
+    <button (click)="addTask()" mat-raised-button color="primary" [disabled]="!taskTitle">Add</button>
+  </div>
+
 </div>

@@ -1,21 +1,46 @@
 <h2>Todo List</h2>
-<ul>
-  <li *ngFor="let task of tasks">
-    <ng-container *ngIf="task.isUpdated===false;else editForm">
-      {{ task.title }}
-      <button (click)="task.isUpdated=true">Edit</button>
-      <button (click)="removeTask(task.id)">Delete</button>
-      <div [ngStyle]="{'background-color': task.isCompleted ? 'green' : ''}">
-      <input type="checkbox"  name="subscribe" (click)="task.isCompleted=!task.isCompleted" />
+<mat-card *ngFor="let task of tasks" class="m-2">
+  <ng-container *ngIf="task.isUpdated===false;else editForm">
+    <div class="row p-2">
+
+      <div class="col-3 d-flex align-items-center">
+        {{ task.title }}
+      </div>
+
+      <div class="col-3">
+        <button mat-raised-button color="primary" (click)="task.isUpdated=true">Edit</button>
+      </div>
+
+      <div class="col-3">
+        <button mat-raised-button color="warn" (click)="removeTask(task.id)">Delete</button>
+      </div>
+
+      <div class="col-3">
+        <mat-checkbox name="subscribe" [(ngModel)]="task.isCompleted??!task.isCompleted"> </mat-checkbox>
+      </div>
+
     </div>
-    </ng-container>
-    <ng-template #editForm>
-      <form (submit)="editTask(task.id)">
-        <input [(ngModel)]="editedTaskName" name="editedTaskName">
-        <button type="submit" >Save</button>
-      </form>
-    </ng-template>
-  </li>
-</ul>
 
+  </ng-container>
+  <ng-template #editForm>
+    <form (submit)="editTask(task.id)">
+      <div class="row d-flex align-items-center justify-content-start p-2">
+        <div class="col-2">
+          <mat-form-field class="example-form-field">
+            <mat-label>Modifier</mat-label>
+            <input matInput name="editedTaskName" [(ngModel)]="editedTaskName" >
+            <button *ngIf="editedTaskName" matSuffix mat-icon-button aria-label="Clear" (click)="editedTaskName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
 
+        <div class="col-3">
+          <button type="submit" mat-raised-button color="primary" [disabled]="!editedTaskName">Save</button>
+        </div>
+
+      </div>
+    </form>
+
+  </ng-template>
+</mat-card>
